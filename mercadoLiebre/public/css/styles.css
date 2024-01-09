@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+}
+
+:root {
+    --amarillo: #EAC926;
+    --azul: #03264C;
+    --celeste: #1259c3;
+    --grisOscuro: #666;
+    --grisClaro: #ebebeb;
+    --verde: #39b54a;
+}
+
+body {
+    background-color: var(--amarillo);
+    width: 360px;
+}
+
+.header__logo {
+    height: 50px;
+    margin: 20px;
+}
+
+.fa-solid fa-hand-holding-dollar {
+    height: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: black
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--grisClaro);
+}
+
+main img {
+    height: 280px;   
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    background-color: white; 
+}
+
+footer section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    text-align: center;
+}
+footer section i {
+    color: var(--celeste);
+    
+}
