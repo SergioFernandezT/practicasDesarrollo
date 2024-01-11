@@ -15,27 +15,78 @@
 
 body {
     background-color: var(--amarillo);
-    width: 360px;
+    
 }
 
+.Header {
+    display: flex;
+    flex-direction:column;
+}
+
+.Header section{
+    margin: 20px;
+}
 .header__logo {
     height: 50px;
     margin: 20px;
 }
-
-.fa-solid fa-hand-holding-dollar {
-    height: 10px;
+.Header div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style-type: none
+}
+.header__text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
+
+.burger-menu {
+    background-color: blue;
+    color: white;
+    border-radius: 8%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    flex-direction: row;    
+    justify-content: center;
+    align-items: center;
+}
 a {
     text-decoration: none;
     color: black
 }
 
+main article p{
+    color:var(--verde)
+}
+main article i{
+    color:var(--verde)
+}
 main {
     display: flex;
     flex-direction: column;
     background-color: var(--grisClaro);
+    width: 90%;
+}
+
+article div div {
+    border-radius: 50%;
+    border-color: var(--verde);
+    border: 1px;
+}
+
+main article {
+    display: flex;
+    width: 310px;
+    flex-direction: column;
+    margin: 10px;
+}
+main article div {
+    margin-top: 1px;
+    background-color: white;
 }
 
 main img {
