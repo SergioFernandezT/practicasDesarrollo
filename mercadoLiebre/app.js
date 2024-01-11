@@ -11,6 +11,17 @@ app.get('/', (req, res)=>{
     res.sendFile(homePath)
 })
 
+app.get('/login', (req, res)=>{
+    let homePath = path.join(__dirname, 'views', 'login.html')
+    res.sendFile(homePath)
+})
+
+app.get('/register', (req, res)=>{
+    let homePath = path.join(__dirname, 'views', 'register.html')
+    res.sendFile(homePath)
+})
+
+
 const port = process.env.PORT ||3030
 app.listen(port, ()=>{
     console.log(`El servidor esta corriendo en http://localhost:${port} 🚀🚀🚀`);
