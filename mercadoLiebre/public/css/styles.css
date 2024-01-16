@@ -15,12 +15,16 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--amarillo);
 
 }
 
 .Header {
     display: flex;
+    box-sizing: content-box;
     flex-direction: column;
     margin: 8px;
 }
@@ -33,18 +37,18 @@ body {
 }
 .header__logo {
     height: 50px;
-    width: 50%;
+    width: 47vw;
 }
 
 .busqueda {
     height: 50px;
-    width: 50%;
+    width: 47vw;
 }
 
 #header__lupa {
     position: absolute;
     background-color: white;
-    right: 2px;
+    right: 8px;
     top: 3px;
     z-index: 5;
 }
@@ -58,7 +62,7 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 360px;
+    width: 100vw;
 }
 
 .header__ticon {
@@ -109,27 +113,24 @@ main {
     display: flex;
     flex-direction: column;
     background-color: var(--grisClaro);
-    width: 360px;
+    width: 90vw;
     justify-content: center;
     align-items: center;
 }
 
 #banner {
-    width: 360px;
-    height: 155px;
-}
-
-article div div {
-    border-radius: 50%;
-    border-color: var(--verde);
-    border: 1px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 25vh;
 }
 
 .main__last__viewed {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 360px;
+    width: 90vw;
 }
 main article {
     display: flex;
@@ -203,4 +204,35 @@ footer section {
 footer section i {
     color: var(--celeste);
 
+}
+
+@media (min-width:361px) {
+    /* TABLET */
+    .mobile_sep {
+        display: flex;
+        flex-direction: row;
+        width: 98vw;
+        flex-wrap: nowrap;
+    }
+
+    .header__logo {
+        width: 29vw;
+    }
+    
+    .busqueda {
+        width: 29vw;
+    }
+
+    .header__text{
+        width: 29vw;
+    }
+    #banner {
+        width: 98vw;
+        height: 30vh;
+    }
+}
+
+@media (min-width:761px) {
+    /* DESKTOP */
+    
 }
