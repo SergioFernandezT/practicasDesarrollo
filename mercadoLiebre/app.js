@@ -21,7 +21,6 @@ app.get('/register', (req, res)=>{
     res.sendFile(homePath)
 })
 
-
 const port = process.env.PORT ||3030
 app.listen(port, ()=>{
     console.log(`El servidor esta corriendo en http://localhost:${port} 🚀🚀🚀`);
