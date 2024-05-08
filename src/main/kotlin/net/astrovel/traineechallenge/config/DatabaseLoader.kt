@@ -7,6 +7,7 @@ import net.astrovel.traineechallenge.account.core.InterfaceAccountService
 import net.astrovel.traineechallenge.account.domain.Account
 import net.astrovel.traineechallenge.account.domain.Country
 import net.astrovel.traineechallenge.account.domain.Market
+import net.astrovel.traineechallenge.account.domain.OperationType
 import net.astrovel.traineechallenge.account.domain.Transaction
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -29,16 +30,16 @@ class DatabaseLoader(@PersistenceContext private val entityManager: EntityManage
     private val isDatabaseEmpty: Boolean
         get() = (entityManager.createQuery("SELECT COUNT(a) FROM Account a").singleResult as Long) == 0L
 
-    private fun setDemoDataTransactions() {
+    private fun setDemoDataTransactions(): Transaction {
 
         val rand = Random()
-        for (i in 1..50000) {
             val amount = rand.nextInt(250000)
-            val randomPositiveLong = Math.abs(UUID.randomUUID().getLeastSignificantBits());
-           // val chosenAccount = accountService?.get(rand.nextLong(accountService.all().totalElements))
-            val transaction = Transaction(randomPositiveLong, "Demo Transaction $i")
+            val randomPositiveLong = Math.abs(UUID.randomUUID().getLeastSignificantBits())
+            val opTypes = listOf(OperationType.DEPOSITO, OperationType.EXTRACCION)
+            val chosenOpType = opTypes[rand.nextInt(opTypes.size)]
+            val transaction = Transaction(randomPositiveLong, "Demo Transaction", amount,chosenOpType)
             entityManager.persist(transaction)
-        }
+        return transaction
     }
 
     private fun loadDemoData() {
@@ -53,11 +54,11 @@ class DatabaseLoader(@PersistenceContext private val entityManager: EntityManage
         markets.forEach { entityManager.persist(it) }
 
         val rand = Random()
-        for (i in 1..100000) {
+        for (i in 1..50000) {
+            var transactionTest = listOf<Transaction>(setDemoDataTransactions(),setDemoDataTransactions(),setDemoDataTransactions())
             val chosenMarket = markets[rand.nextInt(markets.size)]
-            val account = Account(IdGenerator.generateId(), "Demo Account $i", listOf(chosenMarket))
+            val account = Account(IdGenerator.generateId(), "Demo Account $i", listOf(chosenMarket),transactionTest)
             entityManager.persist(account)
         }
-        setDemoDataTransactions()
     }
 }

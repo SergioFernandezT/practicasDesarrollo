@@ -1,6 +1,6 @@
-    package net.astrovel.traineechallenge.account.domain
+package net.astrovel.traineechallenge.account.domain
 
-    import jakarta.persistence.*
+import jakarta.persistence.*
 
     @Entity
     data class Account(
@@ -13,5 +13,13 @@
             joinColumns = [JoinColumn(name = "account_id")],
             inverseJoinColumns = [JoinColumn(name = "market_id")]
         )
-        val markets: List<Market> = emptyList()
+        val markets: List<Market> = emptyList(),
+
+        @OneToMany(cascade = [CascadeType.ALL])
+        @JoinTable(
+        name = "account_transactions",
+        joinColumns = [JoinColumn(name = "account_id")],
+        inverseJoinColumns = [JoinColumn(name = "transaction_id")]
+        )
+        val transactions: List<Transaction> = emptyList()
     )
