@@ -10,6 +10,11 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import net.astrovel.traineechallenge.account.utils.StatsJsonArg
+import net.astrovel.traineechallenge.account.utils.MarketArg
+import net.astrovel.traineechallenge.account.utils.Percentaje
+import net.astrovel.traineechallenge.account.utils.MarketUy
+import net.astrovel.traineechallenge.account.utils.StatsJsonUy
 
 @RestController
 @RequestMapping(Constants.URL_BASE_ACCOUNTS)
@@ -68,15 +73,11 @@ class AccountController {
     }
 
     @GetMapping("/stats")
-    fun stats(): () -> Unit {
-//         var market1 = JsonStringEncoder(
-//             "country": "Argentina",
-//             "market": [{
-//             "MAE": {
-//             "percentage": "80.75"
-//         })
-        var response = { }
-
-        return (response)
+    fun stats(): List<Any> {
+        var response = listOf(
+            StatsJsonArg("Argentina",listOf(MarketArg(Percentaje(80.0), Percentaje(5.3)))),
+            StatsJsonUy("Uruguay",listOf(MarketUy(Percentaje(80.0))))
+        )
+        return response
     }
 }
