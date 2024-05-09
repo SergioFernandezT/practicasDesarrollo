@@ -23,7 +23,7 @@ class AccountController {
     @Autowired
     val accountService: InterfaceAccountService?=null
 
-    @GetMapping("")
+    @GetMapping("/")
     fun all(): ResponseEntity<Page<AccountDTO>> {
         return try {
             ResponseEntity(accountService!!.all(), HttpStatus.OK)
@@ -32,7 +32,7 @@ class AccountController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     fun create(@RequestBody account: AccountDTO): ResponseEntity<Any> {
         return try {
             accountService!!.create(account)
@@ -45,7 +45,7 @@ class AccountController {
 
     }
 
-    @PutMapping("")
+    @PutMapping("/")
     fun update(@RequestBody accountDto: AccountDTO): ResponseEntity<Account> {
         return ResponseEntity.ok(accountService?.update(accountDto))
     }
@@ -74,6 +74,7 @@ class AccountController {
 
     @GetMapping("/stats")
     fun stats(): List<Any> {
+
         var response = listOf(
             StatsJsonArg("Argentina",listOf(MarketArg(Percentaje(80.0), Percentaje(5.3)))),
             StatsJsonUy("Uruguay",listOf(MarketUy(Percentaje(80.0))))
