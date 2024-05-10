@@ -6,9 +6,10 @@ import org.springframework.data.domain.Page
 
 interface InterfaceMarketService {
     fun all(): Page<MarketDTO>
+    fun list(): List<MarketDTO>
     fun get(idMarketDto:Long): Market?
     fun create(marketDto: MarketDTO): Market
     fun update(marketDto: MarketDTO): Market
     fun delete(idMarketDto:Long)
-    fun stats(): List<Int>
+    fun stats(): List<*>
 }

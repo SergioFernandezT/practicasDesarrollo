@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page
 
 interface InterfaceAccountService {
     fun all(): Page<AccountDTO>
+    fun list(): List<AccountDTO>
     fun get(idAccountDto:Long): Account?
     fun create(accountDto: AccountDTO): Account
     fun update(accountDto: AccountDTO): Account

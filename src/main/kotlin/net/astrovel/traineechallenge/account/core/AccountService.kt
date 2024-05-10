@@ -27,6 +27,15 @@ class AccountService : InterfaceAccountService{
         }
     }
 
+    override fun list(): List<AccountDTO>{
+        try {
+            return accountRepository?.findAll()!!.map{ it.toDto()}
+        }catch (e:Exception)
+        {
+            throw Exception(e.message)
+        }
+    }
+
     override fun create(accountDto: AccountDTO): Account {
     try {
         return accountRepository?.save(accountDto.toEntity())!!
