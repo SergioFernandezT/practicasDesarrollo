@@ -10,5 +10,7 @@ class Constants {
         const val URL_BASE_ACCOUNTS="$URL_BASE/accounts"
         //Endpoint API Transactions
         const val URL_BASE_TRANSACTIONS="$URL_BASE/transactions"
+        //Endpoint API Transactions
+        const val URL_BASE_MARKETS="$URL_BASE/markets"
     }
 }

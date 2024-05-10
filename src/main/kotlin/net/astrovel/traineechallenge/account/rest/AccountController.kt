@@ -10,11 +10,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import net.astrovel.traineechallenge.account.utils.StatsJsonArg
-import net.astrovel.traineechallenge.account.utils.MarketArg
-import net.astrovel.traineechallenge.account.utils.Percentaje
-import net.astrovel.traineechallenge.account.utils.MarketUy
-import net.astrovel.traineechallenge.account.utils.StatsJsonUy
 
 @RestController
 @RequestMapping(Constants.URL_BASE_ACCOUNTS)
@@ -23,7 +18,7 @@ class AccountController {
     @Autowired
     val accountService: InterfaceAccountService?=null
 
-    @GetMapping("/")
+    @GetMapping("")
     fun all(): ResponseEntity<Page<AccountDTO>> {
         return try {
             ResponseEntity(accountService!!.all(), HttpStatus.OK)
@@ -32,7 +27,7 @@ class AccountController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     fun create(@RequestBody account: AccountDTO): ResponseEntity<Any> {
         return try {
             accountService!!.create(account)
@@ -45,7 +40,7 @@ class AccountController {
 
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     fun update(@RequestBody accountDto: AccountDTO): ResponseEntity<Account> {
         return ResponseEntity.ok(accountService?.update(accountDto))
     }
@@ -70,15 +65,5 @@ class AccountController {
         }catch (e: Exception){
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
-    }
-
-    @GetMapping("/stats")
-    fun stats(): List<Any> {
-
-        var response = listOf(
-            StatsJsonArg("Argentina",listOf(MarketArg(Percentaje(80.0), Percentaje(5.3)))),
-            StatsJsonUy("Uruguay",listOf(MarketUy(Percentaje(80.0))))
-        )
-        return response
     }
 }

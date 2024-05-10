@@ -6,8 +6,9 @@ import org.springframework.data.domain.Page
 
 interface InterfaceTransactionService {
     fun all(): Page<TransactionDTO>
+    fun list(): List<TransactionDTO>
     fun get(idTransactionDto:Long): Transaction?
-    fun create(accountDto: TransactionDTO): Transaction
-    fun update(accountDto: TransactionDTO): Transaction
+    fun create(transactionDto: TransactionDTO): Transaction
+    fun update(transactionDto: TransactionDTO): Transaction
     fun delete(idTransactionDto:Long)
 }

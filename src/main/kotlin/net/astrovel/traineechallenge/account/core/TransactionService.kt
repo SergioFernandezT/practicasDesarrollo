@@ -16,20 +16,29 @@ import java.util.Optional
 class TransactionService : InterfaceTransactionService {
 
     @Autowired
-    val accountRepository: TransactionRepository? = null
+    val transactionRepository: TransactionRepository? = null
 
     override fun all(): Page<TransactionDTO>{
         try {
-            return accountRepository?.findAll(PageRequest.of(0, 10))!!.map{ it.toDto()}
+            return transactionRepository?.findAll(PageRequest.of(0, 10))!!.map{ it.toDto()}
         }catch (e:Exception)
         {
             throw Exception(e.message)
         }
     }
 
-    override fun create(accountDto: TransactionDTO): Transaction {
+    override fun list(): List<TransactionDTO>{
         try {
-            return accountRepository?.save(accountDto.toEntity())!!
+            return transactionRepository?.findAll()!!.map{ it.toDto()}
+        }catch (e:Exception)
+        {
+            throw Exception(e.message)
+        }
+    }
+
+    override fun create(transactionDto: TransactionDTO): Transaction {
+        try {
+            return transactionRepository?.save(transactionDto.toEntity())!!
         }catch (e:Exception)
         {
             throw Exception(e.message)
@@ -39,7 +48,7 @@ class TransactionService : InterfaceTransactionService {
     override fun get(idTransactionDto: Long): Transaction? {
         val op: Optional<Transaction>
         try {
-            op= accountRepository!!.findById(idTransactionDto)
+            op= transactionRepository!!.findById(idTransactionDto)
         }catch (e:Exception)
         {
             throw Exception(e.message)
@@ -50,9 +59,9 @@ class TransactionService : InterfaceTransactionService {
         return op.get()
     }
 
-    override fun update(accountDto: TransactionDTO) : Transaction {
+    override fun update(transactionDto: TransactionDTO) : Transaction {
         try {
-            return accountRepository?.save(accountDto.toEntity())!!
+            return transactionRepository?.save(transactionDto.toEntity())!!
         }catch (e:Exception)
         {
             throw Exception(e.message)
@@ -61,7 +70,7 @@ class TransactionService : InterfaceTransactionService {
     override fun delete(idTransactionDto: Long) {
         val op: Optional<Transaction>
         try {
-            op = accountRepository!!.findById(idTransactionDto)
+            op = transactionRepository!!.findById(idTransactionDto)
         } catch (e: Exception) {
             throw Exception(e.message)
         }
@@ -69,7 +78,7 @@ class TransactionService : InterfaceTransactionService {
             throw Exception("Transaction id $idTransactionDto not found")
         } else {
             try {
-                accountRepository!!.deleteById(idTransactionDto)
+                transactionRepository!!.deleteById(idTransactionDto)
             } catch (e: Exception) {
                 throw Exception(e.message)
             }

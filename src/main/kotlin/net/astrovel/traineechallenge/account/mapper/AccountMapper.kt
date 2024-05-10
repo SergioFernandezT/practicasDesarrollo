@@ -12,7 +12,7 @@ fun Account.toDto() = AccountDTO(
     id = id,
     description = description,
     markets = markets.map(Market::toDto),
-    transactions = transactions.map(Transaction::toDto)
+    transactions = transactions!!.map(Transaction::toDto)
 )
 
 fun Market.toDto() = MarketDTO(

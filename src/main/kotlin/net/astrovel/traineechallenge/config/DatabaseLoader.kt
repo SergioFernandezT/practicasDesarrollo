@@ -55,9 +55,9 @@ class DatabaseLoader(@PersistenceContext private val entityManager: EntityManage
 
         val rand = Random()
         for (i in 1..50000) {
-            var transactionTest = listOf<Transaction>(setDemoDataTransactions(),setDemoDataTransactions(),setDemoDataTransactions())
             val chosenMarket = markets[rand.nextInt(markets.size)]
-            val account = Account(IdGenerator.generateId(), "Demo Account $i", listOf(chosenMarket),transactionTest)
+            var transactionTest = listOf<Transaction>(setDemoDataTransactions(),setDemoDataTransactions(),setDemoDataTransactions())
+            val account = Account(Math.abs(UUID.randomUUID().getLeastSignificantBits()), "Demo Account $i", listOf(chosenMarket),transactionTest)
             entityManager.persist(account)
         }
     }
