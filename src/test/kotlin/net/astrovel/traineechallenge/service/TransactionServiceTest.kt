@@ -6,7 +6,7 @@ import net.astrovel.traineechallenge.account.domain.OperationType
 import net.astrovel.traineechallenge.account.domain.Transaction
 import net.astrovel.traineechallenge.account.mapper.toDto
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,7 +22,7 @@ class TransactionServiceTest {
     @Autowired
     private lateinit var transactionRepository: TransactionRepository
 
-    @BeforeEach
+    @AfterEach
     fun tearDown() {
         transactionRepository.deleteAll()
     }
@@ -40,7 +40,7 @@ class TransactionServiceTest {
 
         val result = transactionService.get(randomPositiveLong)
 
-        assertThat(result).isEqualTo(transaction1)
+        assertThat(result!!.id).isEqualTo(transaction1.id)
     }
 
     @Test

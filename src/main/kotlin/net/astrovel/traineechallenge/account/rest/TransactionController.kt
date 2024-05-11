@@ -16,23 +16,32 @@ import org.springframework.web.bind.annotation.*
 class TransactionController {
 
     @Autowired
-    val accountService: InterfaceTransactionService?=null
+    val transactionService: InterfaceTransactionService?=null
 
     @GetMapping("")
     fun all(): ResponseEntity<Page<TransactionDTO>> {
         return try {
-            ResponseEntity(accountService!!.all(), HttpStatus.OK)
+            ResponseEntity(transactionService!!.all(), HttpStatus.OK)
+        }catch (e:Exception){
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
+    @GetMapping("/list")
+    fun list(): ResponseEntity<List<TransactionDTO>> {
+        return try {
+            ResponseEntity(transactionService!!.list(), HttpStatus.OK)
         }catch (e:Exception){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 
     @PostMapping("")
-    fun create(@RequestBody account: TransactionDTO): ResponseEntity<Any> {
+    fun create(@RequestBody transaction: TransactionDTO): ResponseEntity<Any> {
         return try {
-            accountService!!.create(account)
+            transactionService!!.create(transaction)
             val responseHeader = HttpHeaders()
-            responseHeader.set("location",Constants.URL_BASE_ACCOUNTS + "/" + account.id)
+            responseHeader.set("location",Constants.URL_BASE_ACCOUNTS + "/" + transaction.id)
             ResponseEntity(responseHeader, HttpStatus.CREATED)
         }catch (e: Exception){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -41,14 +50,14 @@ class TransactionController {
     }
 
     @PutMapping("")
-    fun update(@RequestBody accountDto: TransactionDTO): ResponseEntity<Transaction> {
-        return ResponseEntity.ok(accountService?.update(accountDto))
+    fun update(@RequestBody transactionDto: TransactionDTO): ResponseEntity<Transaction> {
+        return ResponseEntity.ok(transactionService?.update(transactionDto))
     }
 
     @GetMapping("/{id}")
     fun get(@PathVariable id: Long): ResponseEntity<Any> {
         return try {
-            ResponseEntity(accountService!!.get(id), HttpStatus.OK)
+            ResponseEntity(transactionService!!.get(id), HttpStatus.OK)
         }catch (e: Exception){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }catch (e: Exception){
@@ -59,7 +68,7 @@ class TransactionController {
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long): ResponseEntity<Any> {
         return try {
-            ResponseEntity(accountService!!.delete(id), HttpStatus.OK)
+            ResponseEntity(transactionService!!.delete(id), HttpStatus.OK)
         }catch (e: Exception){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }catch (e: Exception){

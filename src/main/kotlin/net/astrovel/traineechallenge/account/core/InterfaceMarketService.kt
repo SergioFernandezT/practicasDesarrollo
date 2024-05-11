@@ -11,5 +11,5 @@ interface InterfaceMarketService {
     fun create(marketDto: MarketDTO): Market
     fun update(marketDto: MarketDTO): Market
     fun delete(idMarketDto:Long)
-    fun stats(): List<*>
+    fun stats(): List<Long>?
 }

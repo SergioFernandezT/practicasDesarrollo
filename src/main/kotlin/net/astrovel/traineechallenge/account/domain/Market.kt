@@ -3,6 +3,7 @@ package net.astrovel.traineechallenge.account.domain
 import jakarta.persistence.*
 
 @Entity
+@Table(name = "markets")
 data class Market(
     @Id
     val id: Long = 1L,

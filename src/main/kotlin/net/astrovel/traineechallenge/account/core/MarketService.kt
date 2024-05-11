@@ -1,5 +1,7 @@
 package net.astrovel.traineechallenge.account.core
 
+import jakarta.persistence.EntityManager
+import jakarta.persistence.PersistenceContext
 import net.astrovel.traineechallenge.account.data.MarketRepository
 import net.astrovel.traineechallenge.account.domain.Market
 import net.astrovel.traineechallenge.account.mapper.toDto
@@ -13,13 +15,22 @@ import org.springframework.stereotype.Service
 import java.util.Optional
 
 @Service
-class MarketService : InterfaceMarketService{
+class MarketService(@PersistenceContext private val entityManager: EntityManager) : InterfaceMarketService{
     @Autowired
     val marketRepository: MarketRepository? = null
 
     override fun all(): Page<MarketDTO> {
         try {
             return marketRepository?.findAll(PageRequest.of(0, 10))!!.map{ it.toDto()}
+        }catch (e:Exception)
+        {
+            throw Exception(e.message)
+        }
+    }
+
+    override fun list(): List<MarketDTO> {
+        try {
+            return marketRepository?.findAll()!!.map{ it.toDto()}
         }catch (e:Exception)
         {
             throw Exception(e.message)
@@ -75,12 +86,13 @@ class MarketService : InterfaceMarketService{
         }
     }
 
-    override fun stats(): List<Int>{
+    override fun stats(): List<Long>? {
         try {
-            val allMarkets = all().groupBy { it.code }.count()
-            val results = allMarkets
-
-            return results as List<Int>
+            val results = entityManager.createNativeQuery(
+            "SELECT COUNT(a.id) FROM accounts a INNER JOIN market_account ma " +
+                    "ON a.id = ma.account_id INNER JOIN markets m ON m.id = ma.market_id " +
+                    " GROUP BY m.code ORDER BY m.code").resultList
+            return results as List<Long>?
         }catch (e:Exception)
         {
             throw Exception(e.message)

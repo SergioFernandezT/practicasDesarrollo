@@ -1,5 +1,6 @@
 package net.astrovel.traineechallenge.account.rest
 
+import net.astrovel.traineechallenge.account.core.InterfaceAccountService
 import net.astrovel.traineechallenge.account.core.InterfaceMarketService
 import net.astrovel.traineechallenge.account.domain.Market
 import net.astrovel.traineechallenge.account.rest.dto.MarketDTO
@@ -15,6 +16,7 @@ import net.astrovel.traineechallenge.account.utils.MarketArg
 import net.astrovel.traineechallenge.account.utils.Percentaje
 import net.astrovel.traineechallenge.account.utils.MarketUy
 import net.astrovel.traineechallenge.account.utils.StatsJsonUy
+import java.util.Optional
 
 
 @RestController
@@ -23,6 +25,9 @@ class MarketController {
 
     @Autowired
     val marketService: InterfaceMarketService?=null
+
+    @Autowired
+    val accountService: InterfaceAccountService?=null
 
     @GetMapping("")
     fun all(): ResponseEntity<Page<MarketDTO>> {
@@ -74,11 +79,23 @@ class MarketController {
     }
 
     @GetMapping("/stats")
-    fun stats(): List<Any> {
-
+    fun stats(): Any? {
+        var salida: List<Long>? = emptyList<Long>()
+        try {
+            salida = marketService?.stats()
+        }
+        catch (e:Exception)
+        {
+            throw Exception(e.message)
+        }
+        var totalAccounts = accountService?.list()?.size!!.toDouble()
+        var mae = salida?.get(0)?.div(totalAccounts)
+        var rofex = salida?.get(1)?.div(totalAccounts)
+        var ufex = salida?.get(2)?.div(totalAccounts)
         var response = listOf(
-            StatsJsonArg("Argentina",listOf(MarketArg(Percentaje(80.0), Percentaje(5.3)))),
-            StatsJsonUy("Uruguay",listOf(MarketUy(Percentaje(80.0))))
+            StatsJsonArg("Argentina",
+                listOf(MarketArg(Percentaje(rofex), Percentaje(mae)))),
+            StatsJsonUy("Uruguay",listOf(MarketUy(Percentaje(ufex))))
         )
         return response
     }
